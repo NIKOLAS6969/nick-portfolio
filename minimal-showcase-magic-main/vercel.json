@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
+  "buildCommand": "cd minimal-showcase-magic-main && npm run build",
+  "outputDirectory": "minimal-showcase-magic-main/dist",
   "framework": "vite",
-  "installCommand": "npm install"
+  "installCommand": "cd minimal-showcase-magic-main && npm install"
 }
