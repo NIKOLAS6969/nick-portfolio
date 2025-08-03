@@ -60,29 +60,33 @@ const Navigation = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMobileMenu}
-            className="md:hidden p-3 text-text-primary hover:text-primary transition-colors bg-surface-elevated rounded-lg hover:bg-surface-elevated/80 border border-border"
+            className="md:hidden p-3 text-text-primary hover:text-primary transition-all duration-200 bg-surface-elevated rounded-lg hover:bg-surface-elevated/80 border border-border transform hover:scale-105"
             aria-label="Toggle mobile menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <div className="transition-transform duration-200">
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </div>
           </button>
         </div>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-border bg-background/95 backdrop-blur-sm rounded-lg shadow-lg">
-            <div className="flex flex-col space-y-2 pt-4 px-4">
-              {["About", "Work", "Contact"].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className="text-left text-base font-medium text-text-primary hover:text-primary transition-colors py-3 px-3 rounded-md hover:bg-surface-elevated"
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
+        <div
+          className={`md:hidden mt-4 pb-4 border-t border-border bg-background/95 backdrop-blur-sm rounded-lg shadow-lg transition-all duration-300 ease-in-out overflow-hidden ${
+            isMobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="flex flex-col space-y-2 pt-4 px-4">
+            {["About", "Work", "Contact"].map((item) => (
+              <button
+                key={item}
+                onClick={() => scrollToSection(item.toLowerCase())}
+                className="text-left text-base font-medium text-text-primary hover:text-primary transition-all duration-200 py-3 px-3 rounded-md hover:bg-surface-elevated transform hover:scale-105"
+              >
+                {item}
+              </button>
+            ))}
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
