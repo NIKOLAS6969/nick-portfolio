@@ -1,6 +1,7 @@
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import { ExternalLink, Github } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Work = () => {
   const projects = [
@@ -35,10 +36,22 @@ const Work = () => {
     >
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-20">
-          <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-6">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-6"
+          >
             <span className="text-primary text-sm font-medium">Portfolio</span>
-          </div>
+          </motion.div>
           <h2 className="text-4xl md:text-5xl font-light text-text-primary mb-6">
             Featured
             <span className="block font-normal bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
@@ -50,7 +63,7 @@ const Work = () => {
             creating innovative digital solutions with cutting-edge
             technologies.
           </p>
-        </div>
+        </motion.div>
 
         {/* Projects Grid */}
         <div className="space-y-24">
