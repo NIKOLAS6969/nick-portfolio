@@ -25,8 +25,10 @@ const Hero = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-5xl md:text-7xl font-light text-text-primary mb-6 leading-tight"
           >
-            Creative
-            <span className="block font-normal">Developer</span>
+            Nick Portfolio
+            <span className="block font-normal text-4xl md:text-5xl text-text-secondary">
+              Creative Developer
+            </span>
           </motion.h1>
 
           <motion.p
