@@ -17,7 +17,48 @@ const Navigation = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile) {
+        // Custom smooth scroll for mobile - slower and smoother
+        const targetPosition = element.offsetTop - 80; // Account for navbar height
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        const duration = 1200; // 1.2 seconds for mobile
+        let start: number | null = null;
+
+        const animation = (currentTime: number) => {
+          if (start === null) start = currentTime;
+          const timeElapsed = currentTime - start;
+          const run = easeInOutCubic(
+            timeElapsed,
+            startPosition,
+            distance,
+            duration
+          );
+          window.scrollTo(0, run);
+          if (timeElapsed < duration) requestAnimationFrame(animation);
+        };
+
+        // Easing function for smooth animation
+        const easeInOutCubic = (t: number, b: number, c: number, d: number) => {
+          t /= d / 2;
+          if (t < 1) return (c / 2) * t * t * t + b;
+          t -= 2;
+          return (c / 2) * (t * t * t + 2) + b;
+        };
+
+        // Add delay to allow menu to close smoothly
+        setTimeout(() => {
+          requestAnimationFrame(animation);
+        }, 400);
+      } else {
+        // Standard smooth scroll for desktop
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
     }
     setIsMobileMenuOpen(false); // Close mobile menu after clicking
   };
@@ -71,7 +112,7 @@ const Navigation = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`md:hidden mt-4 pb-4 border-t border-border bg-background/95 backdrop-blur-sm rounded-lg shadow-lg transition-all duration-300 ease-in-out overflow-hidden ${
+          className={`md:hidden mt-4 pb-4 border-t border-border bg-background/95 backdrop-blur-sm rounded-lg shadow-lg transition-all duration-500 ease-out overflow-hidden ${
             isMobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
